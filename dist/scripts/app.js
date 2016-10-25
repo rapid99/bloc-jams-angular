@@ -5,7 +5,7 @@
 				enabled: true, //hides #! from url (hashbang indicates that the page load is triggered by JS)
 				requireBase: false
 			});
-		$stateProvider //determine the number of properties for a state
+		$stateProvider //determine the number of states and their properties
 			.state('landing', {
 				url: '/',
 				controller: 'LandingCtrl as landing',
@@ -13,6 +13,7 @@
 			})
 			.state('album', {
              	url: '/album',
+             	controller: 'AlbumCtrl as album',
              	templateUrl: '/templates/album.html'
          	})
          	.state('collection', {

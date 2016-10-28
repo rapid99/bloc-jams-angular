@@ -44,6 +44,11 @@
 			return arr;
 		};
 
+        Fixtures.getAlbumSongs = function(){
+            return albumPicasso.songs;
+            SongPlayer();
+        };
+
 		return Fixtures;
 	}
 

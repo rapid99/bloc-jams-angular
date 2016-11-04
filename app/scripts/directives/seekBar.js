@@ -2,7 +2,7 @@
 	function seekBar($document) {
 
 		var calculatePercent = function(seekBar, event) {
-     		var offsetX = event.pageX - seekBar.offset().left;
+     		var offsetX = event.pageX - seekBar.offset().left; 
      		var seekBarWidth = seekBar.width();
      		var offsetXPercent = offsetX / seekBarWidth;
      		offsetXPercent = Math.max(0, offsetXPercent);
@@ -41,18 +41,48 @@
      				$document.bind('mousemove.thumb', function(event) {
          				var percent = calculatePercent(seekBar, event);
          				scope.$apply(function() {
-             			scope.value = percent * scope.max;
-         			});
+             				scope.value = percent * scope.max;
+         				});
+     				});
+     			}
+
+
+     			scope.thumbStyle = function() {
+     				// scope.value to calculate a new fill percentage
+
+
+
+
+     				$(document).bind('mousedown.thumb', function(event) {
+     					var offsetX = event.pageX - seekBar.offset().left;
+             			var barWidth = seekBar.width();
+             			var seekBarFillRatio = offsetX / barWidth;
+
+             			var updateSeekPercentage = function(seekBar, seekBarFillRatio){
+    						var offsetXPercent = seekBarFillRatio * 100;
+    
+    						offsetXPercent = Math.max(0, offsetXPercent);
+   						 	offsetXPercent = Math.min(100, offsetXPercent);
+    
+    						var percentageString = offsetXPercent + '%';
+    						seekBar.find('.thumb').css({left: percentageString});
+    
+						};
+
+             			updateSeekPercentage(seekBar, seekBarFillRatio);
+     				});
+     			}
+     				
+
+     			$document.bind('mousedown.thumb', function() {
+         				$document.unbind('mousemove.thumb');
+         				// $document.unbind('mouseup.thumb');
      			});
- 
-     			$document.bind('mouseup.thumb', function() {
-         			$document.unbind('mousemove.thumb');
-         			$document.unbind('mouseup.thumb');
-     			});
- 			};
+
+     			// $document.bind('mousedown.')
+     		}
 		}
 	};
-};
 
 	angular
 		.module('blocJams')

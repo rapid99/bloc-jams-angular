@@ -1,5 +1,5 @@
 (function() {
-	function SongPlayer(Fixtures) {
+	function SongPlayer($rootScope, Fixtures) {
 
 /**
 * @desc object placeholder for song player
@@ -36,6 +36,17 @@
      			formats: ['mp3'],
      			preload: true
      		});
+            currentBuzzObject.bind('timeupdate', function() {
+                $rootScope.$apply(function() {
+                    SongPlayer.currentTime = currentBuzzObject.getTime();
+                });
+            });
+            // currentBuzzObject.bind('volumechange', function() {
+            //     $rootScope.$apply(function() {
+            //         SongPlayer.volume = currentBuzzObject.setVolume();
+            //     });
+            // });
+
 
      		SongPlayer.currentSong = song;
      	};
@@ -76,6 +87,18 @@
 * @type {Object}
 */
         SongPlayer.currentSong = null;
+
+ /**
+ * @desc Current playback time (in seconds) of currently playing song
+ * @type {Number}
+ */
+        SongPlayer.currentTime = null;
+
+/*
+* @desc holds value for volume
+* @type {Number}
+*/
+        SongPlayer.volume = null;
 
 /**
 * @method .play on SongPlayer {Object}
@@ -142,6 +165,27 @@
             }
         };
 
+/*
+* @function setCurrentTime
+* @desc set current time (in seconds) of currently playing song
+* @param {Number} time
+*/
+        SongPlayer.setCurrentTime = function(time) {
+            if (currentBuzzObject) {
+                currentBuzzObject.setTime(time);
+            }
+        };
+
+/*
+* @func defineVolume
+* @desc sets value of volume
+* @param value
+*/
+        SongPlayer.setCurrentVolume = function(level) {
+            if (currentBuzzObject){
+                SongPlayer.volume = currentBuzzObject.setVolume(level);
+            }
+        };
 
      	return SongPlayer;
  	}
@@ -149,6 +193,6 @@
 
 	angular
 		.module('blocJams')
-		.factory('SongPlayer', SongPlayer);
+		.factory('SongPlayer', ['$rootScope', 'Fixtures', SongPlayer]);
 
 })();

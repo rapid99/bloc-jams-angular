@@ -58,9 +58,21 @@
 				    $document.bind('mousemove.thumb', function(event) {
 				        var percent = calculatePercent(seekBar, event);
 				        scope.$apply(function() {
+<<<<<<< 7a977ca4134ec6fadb26ef612aa96b150bb59608
 				            scope.value = percent * scope.max;    
+=======
+				            scope.value = percent * scope.max;
+<<<<<<< Updated upstream
+				             
+>>>>>>> Fixed Thumb Issue
 				        });
 				    });
+=======
+				            notifyOnChange(scope.value);    
+				    	});
+					});
+				};
+>>>>>>> Stashed changes
 
      			scope.thumbStyle = function() {
      				return {left: percentString()};
@@ -69,12 +81,12 @@
  
      			$document.bind('mouseup.thumb', function() {
          			$document.unbind('mousemove.thumb');
-         			$document.unbind('mouseup.thumb');
+         			$document.unbind('mousedown.thumb');
      			});
- 			};
+ 			}
 		}
 	};
-};
+
 
 	angular
 		.module('blocJams')

@@ -59,9 +59,10 @@
 				        var percent = calculatePercent(seekBar, event);
 				        scope.$apply(function() {
 				            scope.value = percent * scope.max;
-				             
-				        });
-				    });
+				            notifyOnChange(scope.value);    
+				    	});
+					});
+				};
 
      			scope.thumbStyle = function() {
      				return {left: percentString()};
@@ -70,12 +71,12 @@
  
      			$document.bind('mouseup.thumb', function() {
          			$document.unbind('mousemove.thumb');
-         			$document.unbind('mouseup.thumb');
+         			$document.unbind('mousedown.thumb');
      			});
- 			};
+ 			}
 		}
 	};
-};
+
 
 	angular
 		.module('blocJams')
